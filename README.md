@@ -9,11 +9,11 @@ You can watch the course online on [Microsoft Virtual Academy](http://www.micros
 
 This is the companion code repository for the course where you will find all the code samples and presentations. 
 
-## [Module 1: Introduction to Key-Value Databases]()
+## [Module 1: Introduction to Key-Value Databases](https://github.com/sayar/RedisMVA/blob/master/module1_intro_kv_dbs/README.md)
 
 This is the introductory module covering the basics of key-value stores vs tabular databases. In this module you'll understand the fundamental organization of key-value stores, the concept of caches and other data structures. 
 
-## [Module 2: Getting Started with Redis]()
+## [Module 2: Getting Started with Redis](https://github.com/sayar/RedisMVA/blob/master/module2_getting_started/README.md)
 
 In this module, we will cover installing and setting up Redis on Windows, learning the basic commands of Redis and general data structures. 
 
