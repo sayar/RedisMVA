@@ -15,7 +15,7 @@ This is the introductory module covering the basics of key-value stores vs tabul
 
 ## [Module 2: Getting Started with Redis](https://github.com/sayar/RedisMVA/blob/master/module2_getting_started/README.md)
 
-In this module, we will cover installing and setting up Redis on Windows, learning the basic commands of Redis and general data structures. 
+In this module, we will cover installing and setting up Redis on Windows, learning the basic commands of Redis and general data structures including lists.
 
 ## [Module 3: Advanced Data Structures with Redis]()
 
