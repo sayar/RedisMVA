@@ -17,9 +17,9 @@ This is the introductory module covering the basics of key-value stores vs tabul
 
 In this module, we will cover installing and setting up Redis on Windows, learning the basic commands of Redis and general data structures including lists.
 
-## [Module 3: Advanced Data Structures with Redis]()
+## [Module 3: Advanced Data Structures with Redis](https://github.com/sayar/RedisMVA/blob/master/module3_adv_datastructures/README.md)
 
-In this module, we will learn about sets, sorted sets, hashes and hyperloglogs.
+In this module, we will learn about hashes, sets, sorted sets, bitmaps and hyperloglogs.
 
 ## [Module 4: Getting Started with Redis Cache]()
 

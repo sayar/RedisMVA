@@ -1,0 +1,1 @@
+1. Need to explain the return values of Redis commands. 

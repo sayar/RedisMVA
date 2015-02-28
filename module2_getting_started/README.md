@@ -5,6 +5,10 @@
 By the end of this module you will know how to:
 
 - Install, setup and run Redis on your local machine.
+- How to use common Commands
+- Learn about Redis Data Types
+- Learn about Strings and Lists
+- Learn about Expiration
 
 ## Getting Started
 
