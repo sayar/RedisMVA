@@ -21,7 +21,7 @@ In this module, we will cover installing and setting up Redis on Windows, learni
 
 In this module, we will learn about hashes, sets, sorted sets, bitmaps and hyperloglogs.
 
-## [Module 4: Getting Started with Redis Cache]()
+## [Module 4: Getting Started with Azure Redis Cache]()
 
 In this module, we will learn about Azure Redis Cache, how to set it up on the new Azure Portal and how to connect to it.
 
