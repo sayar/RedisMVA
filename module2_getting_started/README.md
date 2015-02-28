@@ -146,11 +146,9 @@ Furthermore, you can turn lists into a queuing system with blocking until elemen
 
 ## Querying for Keys
 
-Typically, you should not quering for keys in production as it tends to deteriote performance when the store has huge numbers of keys. 
+Typically, you should not querying for keys in production as it tends to deteriorate performance when the store has huge numbers of keys. 
 
-There are two ways to query for keys, first is by using the `KEYS` command which takes a pattern that can contain glob-style patterns. The complexity for this operation is O(N) which means you should be using this in production. `SCAN` is the preferred way to query for keys, in essence its a curser based iterator just like in programming languages such as Python or Java or other databases like MongoDB or SQL databases. The `SCAN` command has several options and supporting commands which you can explore [here](http://redis.io/commands/scan).
-
-TODO: EXPLAIN SCAN AS OPPOSED TO LINKING TO DOCUMENTATION. 
+There are two ways to query for keys, first is by using the `KEYS` command which takes a pattern that can contain glob-style patterns. The complexity for this operation is O(N) which means you should be using this in production. `SCAN` is the preferred way to query for keys, in essence its a cursor based iterator just like in programming languages such as Python or Java or other databases like MongoDB or SQL databases. The `SCAN` command has several options and supporting commands which you can explore [here](http://redis.io/commands/scan).
 
 In most cases, you want to avoid querying for keys, you can use sets (which will be explained in the next module) to keep a unique list of keys.
 
@@ -158,5 +156,19 @@ In most cases, you want to avoid querying for keys, you can use sets (which will
 
 As mentioned in Module 1, Redis is best used as a cache yet one of the principles of a cache is that key-value pairs expire after a certain amount of time. We will cover how you can set the expiration of a key in this section.
 
-TODO: EXPIRE: http://redis.io/commands/expire
-TODO: CONTINUE FROM HERE...
+Using the `EXPIRE key ttl` command with a time-to-live in seconds will set the key expiration. Redis stores the expiration as absolute Unix timestamps so even if the store goes down, when it goes back up it will expire the key. 
+
+If you no longer want to have an expiration, you can use the `PERSIST` command to remove it.
+
+If you want to find out how much time is left before expiration, you can use the `TTL` command to find out.
+
+```
+> SET mykey "Hello"
+OK
+> EXPIRE mykey 10
+(integer) 1
+> TTL mykey
+(integer) 10
+```
+
+This ends Module 2. 
