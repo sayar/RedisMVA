@@ -2,7 +2,7 @@
 
 ## Objectives
 
-By the end of this module you will know how to:
+By the end of this module you will:
 
 - Learn about advanced data structures in Redis
 - Learn how to use hashes to store objects and other data models

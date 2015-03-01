@@ -2,7 +2,7 @@
 
 ## Objectives
 
-By the end of this module you will know how to:
+By the end of this module you will:
 
 - Learn about Azure Redis Cache
 - Learn how to create a new cache in the azure portal. 

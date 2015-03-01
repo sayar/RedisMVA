@@ -2,9 +2,9 @@
 
 ## Objectives
 
-By the end of this module you will know how to:
+By the end of this module you will:
 
-- Install, setup and run Redis on your local machine.
+- Know how to install, setup and run Redis on your local machine.
 - How to use common Commands
 - Learn about Redis Data Types
 - Learn about Strings and Lists
