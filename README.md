@@ -21,7 +21,7 @@ In this module, we will cover installing and setting up Redis on Windows, learni
 
 In this module, we will learn about hashes, sets, sorted sets, bitmaps and hyperloglogs.
 
-## [Module 4: Getting Started with Azure Redis Cache]()
+## [Module 4: Getting Started with Azure Redis Cache](https://github.com/sayar/RedisMVA/blob/master/module4_azure_redis_cache/README.md)
 
 In this module, we will learn about Azure Redis Cache, how to set it up on the new Azure Portal and how to connect to it.
 
@@ -29,7 +29,7 @@ In this module, we will learn about Azure Redis Cache, how to set it up on the n
 
 In this module, we will learn how to connect to Azure Redis Cache with C#, Python & Node.js and see how we can use Redis as a cache in a variety of applications.
 
-## [Module 6: Redis as a Pub/Sub on Azure VM]()
+## [Module 6: Redis as a Pub/Sub on Azure VM](https://github.com/sayar/RedisMVA/blob/master/module6_redis_pubsub/README.md)
 
 In this module, we will show you how to use Redis as a publish-subscribe mechanism. This is one of Redis' more interesting applications and we will show you how to set up Redis as a pub-sub on Azure VMs.
  
