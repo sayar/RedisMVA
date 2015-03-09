@@ -463,8 +463,8 @@ You'll see the node pacakges get installed and you site deployed.
 Finally visit your website and have a friend visit it. You should see the following output on your browser:
 
 ```
-Hello undefined
- about 2 unique connections have visited this site!
+Hello 208.72.141.54:54160
+ about 5 unique connections have visited this site!
 ```
 
 
