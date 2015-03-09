@@ -1,0 +1,16 @@
+{
+  "name": "redis-node",
+  "version": "1.0.0",
+  "description": "simple redis example",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node count_server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^1.4.33",
+    "redis": "^0.12.1"
+  }
+}
