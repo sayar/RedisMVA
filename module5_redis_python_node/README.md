@@ -6,8 +6,9 @@ By the end of this module you'll know how to:
 
 - Install the Redis Driver for Node.js
 - Install the Redis Driver for Python
-- How Subscribe and Publish to Channels in Node and Python
-- Cache a Query's results into Redis
+- Manipulate Redis Datastructures in Python
+- Cache a Query's results into Redis in Node
+- Count the Number of Unique IPs that Visited your Stie in Node
 
 ## Introduction
 
