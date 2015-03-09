@@ -10,7 +10,8 @@ By the end of this module you will:
 
 ## Azure Redis Cache
 
-Microsoft Azure Redis Cache is based on the popular open source Redis Cache. It gives you access to a secure, dedicated Redis cache, managed by Microsoft. A cache created using Azure Redis Cache is accessible from any application within Microsoft Azure.
+Microsoft Azure Redis Cache is based on the popular open source Redis Cache. It gives you access to a secure, dedicated Redis cache, managed by Azure. Any updates or patches to Redis is fully managed by Azure. A cache created using Azure Redis Cache is accessible from any application.
+
 
 Microsoft Azure Redis Cache will be available in two tiers:
 * Basic – Single node. Multiple sizes.
@@ -19,6 +20,7 @@ Microsoft Azure Redis Cache will be available in two tiers:
 Cache is available in sizes up to 53 GB.
 
 Azure Redis Cache leverages Redis authentication and also supports SSL connections to Redis.
+
 
 ## Creating a New Cache
 
@@ -43,6 +45,41 @@ Azure Redis Cache leverages Redis authentication and also supports SSL connectio
 
 ![](5_creating_new.PNG)
 
+
 ## Connecting to your Instance with Redis CLI
 
-TODO: Finish here.
+### Obtaining Your Connection Information
+
+Click on the the newly created Redis Cache tile and select **'All Settings'**, then select **Properties**:
+
+![](ss1.png)
+
+Save the hostname somewhere we'll need that in a second. Back on the Settings blad click **Access Keys** option and copy the **Primary** key:
+
+
+![](ss2.png)
+
+Finally, we'll disable SSL, which is turned on by default. Redis clients may or may not support SSL. For example the Node.js client doesn't support SSL out of the box but [this fork](https://github.com/paddybyers/node_redis) has an implementation for, but the [Python redis client](https://github.com/andymccurdy/redis-py/) has support for this.
+
+For the purposes of this Virtual Academy walk-through, we'll turn SSL off:
+
+![](ss3.png)
+
+### Connecting to the redis server
+
+Finally to connect to the Azure Redis Instance you can execute this command:
+
+```bash
+$ redis-cli -h <redis-cache-name>.redis.cache.windows.net -p 6379 -a <your key>
+```
+
+This creates a connection to your azure redis instance and you can do any of the commands that you could do against your local instance.
+
+```bash
+someredis.redis.cache.windows.net:6379> GET somekey
+(nil)
+someredis.redis.cache.windows.net:6379> SET somekey 'some value'
+OK
+someredis.redis.cache.windows.net:6379> GET somekey
+"some value"
+```                                                             
