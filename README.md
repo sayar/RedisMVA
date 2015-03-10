@@ -25,7 +25,7 @@ In this module, we will learn about hashes, sets, sorted sets, bitmaps and hyper
 
 In this module, we will learn about Azure Redis Cache, how to set it up on the new Azure Portal and how to connect to it.
 
-## [Module 5: Redis via C#, Python & Node.js]()
+## [Module 5: Redis via C#, Python & Node.js](module5_redis_python_node/README.md)
 
 In this module, we will learn how to connect to Azure Redis Cache with C#, Python & Node.js and see how we can use Redis as a cache in a variety of applications.
 
