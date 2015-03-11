@@ -84,3 +84,160 @@ pub.publish("analytics", "page_viewed");
 ```
 
 That's all you need to use Redis pub/sub!
+
+# Scaling a Realtime Messaging Application with Pub/Sub
+
+By itself it may be unclear why Redis' Pub/Sub feature is useful. However we can explain why this is so useful for scalabily with a simple chat application. We'll be using Socket.io and Node.js to do this applciation example but the architectual principal transcends languages.
+
+We won't be going into much of the application details but if you want to learn more about the inner workings of Socket.io and Node Express, check out one of our [previous MVAs](https://github.com/sayar/NodeMVA/tree/master/09_NodeChatroom).
+
+## Creating the Application
+
+First let's quickly build a chat application using the [Yeoman generator](http://yeoman.io). Yeoman allows us to quickly scaffold an app using a variety of technologies that work together. 
+
+Execute these commands:
+
+```bash
+npm install yo -g
+npm npm install -g generator-socketio
+yo socketio
+# Answer all the questions Yeoman asks (we will call our app test-chat)
+# Npm May fail to install (you may need to run it with sudo). If so execute:
+npm install
+npm install bower -g
+bower install
+```
+Now run the applciation by executing:
+
+```bash
+# install grunt cli
+npm install -g grunt-cli
+# star the app
+grunt
+```
+
+Alright and if everything went well for you, your default web browser should have launched with the live chat app where you can send a message:
+
+![](ss4.png)
+
+You'll notice the debug output when you send a message:
+
+
+```bash
+debug - websocket writing 5:::{"name":"blast","args":[{"msg":"<span style=\"color:red !important\">someone connected</span>"}]}
+   info  - unhandled socket.io url
+   info  - unhandled socket.io url
+{ msg: 'test message' }
+   debug - websocket writing 5:::{"name":"blast","args":[{"msg":"test message"}]}
+   debug - sending data ack packet
+   debug - websocket writing 6:::1
+   info  - unhandled socket.io url
+   info  - unhandled socket.io url
+
+```
+
+## Scaling the Application
+
+### The Problem
+
+Notice that multiple clients can chat with each other when they connect to the same server. Currently here is a very high level look at the application messaging architecture:
+
+![](ss1.png)
+
+A client sends a message to everyone else connected to the server by dispatching a message to the server. Then the server broadcasts it to its connected clients.
+
+Right now running locally we have 1 server, however in the real world, when you roll out a service you generally have more than just 1 instance of the server running. Say we add another Socket.io server to scale the chat service:
+
+![](ss2.png)
+
+Now, the way things are, Client D would never get any messages from clients A B 
+or C. 
+
+### Creating the Messaging Application
+
+We can try this out for real by just copying the application we made to another directory:
+
+```bash
+# copy the application directory to antoher
+$ cp -R test-chat test-chat2
+```
+
+Now change the port you run the application by modifying the top couple lines in the `Grunt.js` file generated to run on port `35728` and `1338`:
+
+`Grunt.js`:
+
+```js
+var LIVERELOAD_PORT = 35728;
+var RUNNING_PORT = 1338; // <- if you change this, you need to change in public/js/app.js and recompile
+```
+
+Next, in `public/js/app.js` modify this first line of code to tell the browser to connect to the new port number we just set:
+
+`public/js/app.js`:
+
+```js
+// connect to our socket server
+var socket = io.connect('http://127.0.0.1:1338/');
+```
+
+
+Notice, how we can't send a message from one window to the other:
+
+![](ss5.png)
+
+#### Scaling With Redis
+
+A great way to solve this is by using Redis' pub/sub feature to facilitate messages between our socketio servers. With this here's how our architecture looks:
+
+![](ss3.png)
+
+In this scenario, client D can now recieve a message from client A because the backend servers are connected with Redis.
+
+Let's actually implement this. Luckily the nice folks at socket.io has already created a [socket.io redis adapter](http://npmjs.com/package/socket.io-redis) just for this use.
+
+In our case we need to make the following changes for **each** version of the application. In the real-world deployment we wouldn't have to do this because we would have a load balancer in place.
+
+First, we have to install the redis adapter and update the socket.io package. Execute this command to install the adapter:
+
+```bash
+npm install socket.io-redis --save
+```
+
+As of writing this the yeoman socketio generator uses an outdated version of the package. Change your `package.json` dependencies to look like this:
+
+```json
+"dependencies": {
+    "ejs": "~0.8.5",
+    "express": "~3.4.6",
+    "express-device": "~0.3.7",
+    "socket.io": "~1.3.5",
+    "socket.io-redis": "^0.1.4"
+  }
+```
+
+Now we need to tell the Node.js servers to use redis.  Change `server.js` first few `require` statements to use the redis adapter:
+
+`server.js`
+
+```js
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+var redis = require('socket.io-redis');
+io.adapter(redis({ host: 'localhost', port: 6379 }));
+```
+
+Remember all these changes need to be made to **both** versions of your app to make this demo work.
+
+Now run both applications by using two terminal windows and executing `grunt`. Navigate one browser to `http://localhost:1338` and the other to `http://localhost:1337`.
+
+Notice now, we can actually send messages between the windows, even though they are both connected to two different socket.io servers:
+
+![](ss6.png)
+
+Redis allows us to horizontally scale our service allowing multiple servers to publish and subscribe to messages so that users connected to different instances of the app can communicate.
+
+We won't actually do this in our walkthrough but when you deploy to [Azure](http://azure.com) or any other cloud service your final architecture would have a load balancer, which logically would look like a single server to your clients. Azure abstracts the load balancer from you and makes it really easy to setup load balancing without actually having to do any low level web server configuration.
+
+Here's what this architecture would look like in an actual cloud deployment:
+
+![](ss7.png)
