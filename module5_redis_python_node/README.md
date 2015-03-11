@@ -35,7 +35,10 @@ With Python we'll show you how to use the `redis-py` client to manipulate a few 
 To install the Redis client go ahead and execute:
 
 ```bash
+# linux/mac
 sudo pip install redis
+# windows
+pip install redis
 ```
 
 Create a new python file so we can get up an running with Redis called `datastructures.py` with the following import:
@@ -49,7 +52,7 @@ Going forward the [Python Redis Client](https://redis-py.readthedocs.org/en/late
 
 #### Hashes
 
-Continuing from the examples in Module [2]() and [3]() we can access Redis' HSET command right from the Redis client object:
+Continuing from the examples in Module [2](../module2_getting_started/README.md) and [3](../module3_getting_started/README.md) we can access redis' HSET command right from the redis client object:
 
 ```py
 import redis
@@ -466,5 +469,7 @@ Finally visit your website and have a friend visit it. You should see the follow
 Hello 208.72.141.54:54160
  about 5 unique connections have visited this site!
 ```
+
+Because the app is deployed to a publicly accessible location you can now count the number of unique connections from clients anywhere on the web!
 
 
