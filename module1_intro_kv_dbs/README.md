@@ -126,7 +126,7 @@ Alternatively, we can create two reverse indices to speed up those two operation
 "person:name:sam_brightwood" = "person:1"
 
 "person:0:accounts" = "[account:0, account:1, account:2]"
-"person:0:accounts" = "[account:3, account:4, account:5]"
+"person:1:accounts" = "[account:3, account:4, account:5]"
 ```
 
 Adding those two reverse indices, one to have a mapping between first_name & last_name and the key, second to have a mapping between a person and their accounts, allows us to answer our original question significantly faster than our initial approach. Fundamentally, how we store our data affects data retrieval in the key-value scenario.

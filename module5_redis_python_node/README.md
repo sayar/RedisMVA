@@ -6,19 +6,19 @@ By the end of this module you'll know how to:
 
 - Install the Redis Driver for Node.js
 - Install the Redis Driver for Python
-- Manipulate Redis Datastructures in Python
+- Manipulate Redis Data Structures in Python
 - Cache a Query's results into Redis in Node
-- Count the Number of Unique IPs that Visited your Stie in Node
+- Count the Number of Unique IPs that Visited your site in Node
 
 ## Introduction
 
-As we've learned in Module [2]() and [3]() redis is a feature-packed cache with pub/sub capabilities along with advanced datastructures that can keep application information.
+As we've learned in Module [2]() and [3]() Redis is a feature-packed cache with pub/sub capabilities along with advanced data structures that can keep application information.
 
-In this module, we'll use Redis via Node.js and Python Drivers in a variety of examples which show off how we can use some redis features.
+In this module, we'll use Redis via Node.js and Python Drivers in a variety of examples which show off how we can use some Redis features.
 
 ## Getting Started
 
-Before you get started with this session you'll need to install a few things:
+Before you get started with this session, you'll need to install a few things:
 
 - [MongoDB](https://www.mongodb.org/downloads)
 - [Node.js](https://nodejs.org/download/)
@@ -28,17 +28,17 @@ You can also install all of these things with either [Homebrew](http://brew.sh) 
 
 ## Redis Commands with Python
 
-With Python we'll show you how to use the `redis-py` client to manipulate a few redis datastructures.
+With Python we'll show you how to use the `redis-py` client to manipulate a few Redis data structures.
 
 #### Getting Started
 
-To install the redis client go ahead and execute:
+To install the Redis client go ahead and execute:
 
 ```bash
 sudo pip install redis
 ```
 
-Create a new python file so we can get up an running with redis called `datastructures.py` with the following import:
+Create a new python file so we can get up an running with Redis called `datastructures.py` with the following import:
 
 ```py
 import redis
@@ -47,9 +47,9 @@ r = redis.StrictRedis(host="localhost", port=6379, db=0)
 
 Going forward the [Python Redis Client](https://redis-py.readthedocs.org/en/latest/index.html?highlight=mapping) implements nearly all the native redis commands.
 
-#### HashSets
+#### Hashes
 
-Continuing from the examples in Module [2]() and [3]() we can access redis' HSET command right from the redis client object:
+Continuing from the examples in Module [2]() and [3]() we can access Redis' HSET command right from the Redis client object:
 
 ```py
 import redis
@@ -62,7 +62,7 @@ r.hset("person:0", "last_name", "Edouard")
 print hgetall("person:0")
 ```
 
-The python script creates a new `person` hashset with an `id` of 0 with both the `first_name` and `last_name` fields set.
+The python script creates a new `person` hash with an `id` of 0 with both the `first_name` and `last_name` fields set.
 
 Just as on the command line, doing a GETALL will retrieve the entire hash set:
 
@@ -107,7 +107,7 @@ set(['Canada', 'USA', 'Mexico']
 
 One scenario why using Redis and any other cache is storing the results of common queries for a limited amount of time for fast recall.
 
-For example, a long running query that may be common to many users of your appication can be cached so that the result is much quicker for mosts who ask for the query.
+For example, a long running query that may be common to many users of your application can be cached so that the result is much quicker for most who ask for the query.
 
 ### The Crime Data Set
 
@@ -121,7 +121,7 @@ Once you're running locally we'll go ahead and download [the dataset](https://mo
 mongoimport Crimes_-_2001_to_present.csv --type csv --headerline --collection crimes
 ```
 
-This dataset contains about 5 million entries and represents crimes that have occured in Chicago since 2001.
+This dataset contains about 5 million entries and represents crimes that have occurred in Chicago since 2001.
 
 A typical record in this database looks like:
 

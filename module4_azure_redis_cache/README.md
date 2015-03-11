@@ -10,7 +10,7 @@ By the end of this module you will:
 
 ## Azure Redis Cache
 
-Microsoft Azure Redis Cache is based on the popular open source Redis Cache. It gives you access to a secure, dedicated Redis cache, managed by Azure. Any updates or patches to Redis is fully managed by Azure. A cache created using Azure Redis Cache is accessible from any application.
+Microsoft Azure Redis Cache is based on the popular open source Redis Cache. It gives you access to a secure, dedicated Redis cache, managed by Azure. Any updates or patches to Redis are fully managed by Azure. A cache created using Azure Redis Cache is accessible from any application.
 
 
 Microsoft Azure Redis Cache will be available in two tiers:

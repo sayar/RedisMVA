@@ -101,7 +101,7 @@ Read more [here](http://redis.io/commands#set).
 
 Redis sorted sets are similar to regular sets with one major difference; members of the set are given a rank that determines their position in the set. Immediately, you can use Redis to handle situations like leaderboards in your games or task priority queues that other databases cannot. 
 
-In softed sets, members are automatically sorted by their rank and although the members must be unique, their rank not. Since members are ordered immediately as they are added to the set, the performance for adding, removing or updating members is faster of O(log(n)). You can retrieve elements by position or rank. 
+In sorted sets, members are automatically sorted by their rank and although the members must be unique, their rank not. Since members are ordered immediately as they are added to the set, the performance for adding, removing or updating members is faster of O(log(n)). You can retrieve elements by position or rank. 
 
 The commands to create sorted sets are a little different than the previous pattern but similar to set commands. To add a member to a sorted set you have to use the `ZADD` command along with a score, to remove a member the `ZREM` command, to check if a member already exists or get the score the `ZSCORE` command and to get the members of a set the `ZRANGE` command. 
 
