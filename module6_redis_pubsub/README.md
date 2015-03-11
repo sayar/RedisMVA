@@ -7,10 +7,11 @@ By the end of this module you will:
 - Learn about publish-subscribe
 - Learn about how to setup Redis for pub/sub
 - How to consume and produce messages with Node.js
+- How to Scale a Messaging Application with Redis
 
 ## Redis Publish-Subscribe
 
-The publish-subscribe or pub/sub for short is a messaging pattern where there are multiple publishers sending messages to multiple subscribers listening for messages on specific channels through server software. It is one of the most common message queue patterns. Many systems have been created for this purpose among them Redis, RabbitMQ, Azure MessageBus and more... 
+Publish-subscribe or pub/sub for short is a messaging pattern where there are multiple publishers sending messages to multiple subscribers listening for messages on specific channels through server software. It is one of the most common message queue patterns. Many systems have been created for this purpose among them Redis, RabbitMQ, Azure MessageBus and more... 
 
 Redis, a high performance data structure store, has added support for pub/sub on top of its existing functionality. Redis pub/sub is built on three commands: `PUBLISH`, `SUBSCRIBE` and `UNSUBSCRIBE`. 
 
