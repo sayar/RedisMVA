@@ -3,17 +3,17 @@
 --------
 ## Objectives
 
-By the end of this module you will be able to understand the difference between key-value stores, structured databases and SQL databases.
+By the end of this module, you will be able to understand the difference between key-value stores, structured databases and SQL databases.
 
 ## Introduction
 
 [Key-Value Stores](http://en.wikipedia.org/wiki/NoSQL#Key-value_stores) are a type of data store that organize data differently from your traditional SQL store. The fundamental data model of a key-value store is the associative array (a.k.a. a map, a dictionary or a hash). It is a collection of key-value pairs where the key is unique in the collection. A key can be an ID or a name or anything you want to use as an identifier. The value can be anything. Rather than storing data into a variety of tables and columns like in SQL stores, key-value stores split a data model into a collection of data structures such as key-value strings, lists, hashes, sets, etc... Although it may sound simplistic, you can build  more complex data structures on top of key-values. 
 
-Redis focuses on high performance and a simple querying language that is really just a set of data retrieval commands (See Module 2). Unlike SQL, there are no worries about writing complex queries.
+Redis focuses on high performance and a simple querying language that is just a set of data retrieval commands (See Module 2). Unlike SQL, there are no worries about writing complex queries.
 
 The nature of key-value stores makes them best suited to operate as caches or data structure stores and in situations that are performance sensitive. As previously mentioned, you can build more advanced data structures on top of key-value pairs. You can also use the high performance to build queues or publish-subscribe mechanisms (See Module 6).
 
-Key-value stores fall under the NoSQL family of databases, they don't use SQL and have a flexible schema. Your application defines the key-value pairs and can change the definition at any time. It's up to you to decide how your data is stored.
+Key-value stores fall into the NoSQL family of databases, they don't use SQL and have a flexible schema. Your application defines the key-value pairs and can change the definition at any time. You decide how to store your data!
 
 ## Tabular Structured Data vs Key-Value Structure
 
@@ -48,23 +48,23 @@ ID  | ACCOUNT_TYPE | ACCOUNT_BALANCE | CURRENCY | HOLDER (FK: Persons)
 4  | Investment | 4500.00 | YEN | 1
 5  | Savings | 4500.00 | YEN | 1
 
-In the above data schema, the **HOLDER** field in the **Accounts** table is a **Foriegn Key** into the **Accounts** table. This is what creates the association between the two data entities. SQL actually requires that in order to create an Account, you must have a valid Foreign key that points to an existing person, which can cause some loss in flexibility.
+In the above data schema, the **HOLDER** field in the **Accounts** table is a **Foreign Key** into the **Accounts** table. This key is what creates the association between the two data entities. SQL requires that in order to create an Account, you must have a valid Foreign key that points to an existing person, which can cause some loss in flexibility.
 
 With the schema above its easy to answer the question:
 
-*Who is the account holder for account with ID = 3?*
+*Who is the account holder for the account with ID = 3?*
 
-Because we have a foreign key HOLDER for the account we can quickly and easily look up that the account holder is **Sam Brightwood**. This is because there is a **many:one** relation ships from Account entities and Person entities.
+Because we have a foreign key HOLDER for the account we can quickly and easily look up that the account holder is **Sam Brightwood**. This is because there is a **many:one** relationship from Account entities and Person entities.
 
 Now, how about the question:
 
 *Which accounts does person Steven Edouard hold?*
 
-To answer this question, it requires us to do a **join** which essentially is a set operation to find all of the rows in the **Accounts** table which match the Person ID = 0. This can become an expensive operation as the data in the tables grow toward larger and larger numbers.
+To answer this question, it requires us to do a **join** which essentially is a set operation to find all of the rows in the **Accounts** table which match the Person ID = 0. This operation can become an expensive as the data in the tables grow in larger and larger numbers.
 
 ### Key-value Structure
 
-In the key-value data structure, we want to reduce the Person table into a collection of keys and values that are identifiable by a Person ID. The key is an index in the key-value store but we can add a second index embedded in the same key. For example, we want to take Person with ID=0 and store their first name, we can name our key: `0:first_name` or maybe `person:0:first_name` by using the ':' as an index separator in the key. If we follow this nomenclature of `table-name:key:property`, the above data can be flatted to the following key-value pairs. 
+In the key-value data structure, we want to reduce the Person table into a collection of keys and values that are identifiable by a Person ID. The key is an index in the key-value store, but we can add a second index embedded in the same key. For example, we want to take Person with ID=0 and store their first name, we can name our key: `0:first_name` or maybe `person:0:first_name` by using the ':' as an index separator in the key. If we follow this nomenclature of `table-name:key:property`, the above data can be flatted to the following key-value pairs. 
 
 ```
 "person:0:first_name" = "Steven"
@@ -137,6 +137,6 @@ It seems like a lot more work to use a key-value database to store tabular data.
 
 ## Where Key-Value Stores Shine?
 
-The previous example was using a data model that was relational and shows key-value stores to be more difficult to work with. Well all that doesn't matter when your data is by nature key-value pairs, like a cache. A cache is a component that stores results so that they can be served faster in the future.
+The previous example was using a data model that was relational and shows key-value stores in not the best light. Well, all that doesn't matter when your data is by nature key-value pairs. A cache is a component that stores results so that they can be served faster in the future.
 
-Let's say that you have to perform a long-running computation based of a key, for example: an encryption or a mathematical operation. You have calculated this computation once already, you want to keep it for the next time you need it but you don't want to hold on to it for too long. This is where a key-value store will shine! The simplicity and the lack of overhead from a query system results in a very high performance system 
+Let's say that you have to perform a long-running computation based on a key, for example: an encryption or a mathematical operation. You have calculated this computation once already; you want to keep it for the next time you need it, but you don't want to hold on to it for too long. This situation is where a key-value stores shine! The simplicity and the lack of overhead from a query system result in a very high-performance system 

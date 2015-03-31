@@ -24,7 +24,7 @@ Once you have extracted Redis, you can open up a console, navigate to that folde
 
 `redis-server redis.windows.conf`
 
-This will start the Redis server on port 6379.
+This command will start the Redis server on port 6379.
 
 In the configuration file, you can find settings to change the port, bind to an IP or hostname, specify TCP keepalive settings, set the log file and more importantly set the settings for when Redis should snapshot the DB to disk. If you are using Redis only as a cache, you will not need to save to disk as that is a slow operation with an impact on performance. 
 
@@ -54,11 +54,11 @@ redis-server --service-stop --service-name cache1
 
 Once you've got `redis-server` started, you can use the `redis-cli` to connect to your server and do some basic commands. Simply executing `redis-cli` will connect you using the default ports and parameters as set in `redis.windows.conf`. 
 
-If you remember from Module 1, Redis is a key-value store and the basics of the data model is storing key and value pairs. We can retrieve the values only if we know the exact key. The command to store the key-value pair is `SET`.
+If you remember from Module 1, Redis is a key-value store and the basics of the data model are storing key and value pairs. We can retrieve the values only if we know the exact key. The command to store the key-value pair is `SET`.
 
 `SET key "value"` or `SET person:1:first_name "Rami"`  
 
-The client will print `OK` if the command was executed successfully.
+The client will print `OK` if the command is executed successfully.
 
 To retrieve the value stored for the above key, you use the `GET` command. 
 
@@ -70,7 +70,7 @@ Note: the quotation marks are not stored with the value.
 
 ## A Walkthrough of Common Commands
 
-Let us walkthrough some common Redis commands. First is `DEL` which serves to remove a key-value pair from the store. Second is `SETNX` which performs a `SET` command only on condition that the key-value pair does not already exist in the store. `APPEND` serves to append to your value. `INCR` and `DECR` serve to increment and decrement the integer value of a key. These two command bring up the question of "what data types are supported as values?". We will answer that question shortly. 
+Let us walk through some common Redis commands. First is `DEL` which serves to remove a key-value pair from the store. Second is `SETNX` which performs a `SET` command only on condition that the key-value pair does not already exist in the store. `APPEND` serves to append to your value. `INCR` and `DECR` serve to increment and decrement the integer value of a key. These two commands bring up the question of "what data types are supported as values?". We will answer that question shortly. 
 
 Let us run a series of commands and see what the output is:
 
@@ -91,7 +91,7 @@ Notice the last increment is done on a key that has already been deleted which r
 
 ## Data Types Supported
 
-Redis supports multiple ways to manipulate values as you can see by the `INCR` and `DECR` operators in the previous section. The most basic kind of Redis value is a string. Strings are binary safe so you can insert any kind of value you want so long as the maximum size does not surpass 512 MB. This is a hard limit. You can treat strings like numbers hence the `INCR` and `DECR` but you can also treat them as bits (`GETBIT` & `SETBIT`) or as random access arrays (`GETRANGE` & `SETRANGE`). 
+Redis supports multiple ways to manipulate values as you can see by the `INCR` and `DECR` operators in the previous section. The most basic Redis value is a string. Strings are binary safe so you can insert any kind of value you want so long as the maximum size does not surpass 512 MB. This is a hard limit. You can treat strings as numbers hence the `INCR` and `DECR` but you can also treat them as bits (`GETBIT` & `SETBIT`) or as random access arrays (`GETRANGE` & `SETRANGE`). 
 
 There are also other data types that we will cover mostly in the next module. Those data types include lists, sets, sorted sets, hashes, bitmaps and hyperloglogs. 
 
@@ -105,7 +105,7 @@ TODO: ADD RENAME.
 
 ## Lists
 
-Redis also supports lists of strings. You can create a list by using the command `LPUSH` or `RPUSH` which prepend a value to a list or append a value to a list. If you had an `X` to the end of either command, it will only do that operation if the list already exists. The command `LPOP` removes the first element in a list and removes it, `RPOP` does the same for the last element. Thus you can see the beginnings of a queue. 
+Redis also supports lists of strings. You can create a list by using the command `LPUSH` or `RPUSH` which prepend a value to a list or append a value to a list. If you had an `X` to the end of either command, it would only do that operation if the list already exists. The command `LPOP` removes the first element in a list and removes it, `RPOP` does the same for the last element. Thus you can see the beginnings of a queue. 
 
 ```
 > LPUSH countries "Canada"
@@ -120,7 +120,7 @@ Redis also supports lists of strings. You can create a list by using the command
 "France"
 ```
 
-You can also treat lists as random access. You can use `LINDEX` to get an element from a list by its index and you can get the length of the list by using the `LLEN` command. You can also use `LINSERT` to insert an element in the list after a specific element or or use `LSET` to modify a value in a list at that index. You can use `LRANGE` to get a range of elements and `LTRIM` to remove a range of elements. `RPOPLPUSH` removes the last element in a list and prepends it to another list.
+You can also treat lists as random access. You can use `LINDEX` to get an element from a list by its index and you can get the length of the list by using the `LLEN` command. You can also use `LINSERT` to insert an element in the list after a specific element or use `LSET` to modify a value in a list at that index. You can use `LRANGE` to get a range of elements and `LTRIM` to remove a range of elements. `RPOPLPUSH` removes the last element in a list and prepends it to another list.
 
 ```
 > LLEN countries
@@ -152,7 +152,7 @@ Furthermore, you can turn lists into a queuing system with blocking until elemen
 
 Typically, you should not querying for keys in production as it tends to deteriorate performance when the store has huge numbers of keys. 
 
-There are two ways to query for keys, first is by using the `KEYS` command which takes a pattern that can contain glob-style patterns. The complexity for this operation is O(N) which means you should be using this in production. `SCAN` is the preferred way to query for keys, in essence its a cursor based iterator just like in programming languages such as Python or Java or other databases like MongoDB or SQL databases. The `SCAN` command has several options and supporting commands which you can explore [here](http://redis.io/commands/scan).
+There are two ways to query for keys, first is by using the `KEYS` command which takes a pattern that can contain glob-style patterns. The complexity for this operation is O(N) which means you should be using this in production. `SCAN` is the preferred way to query for keys, in essence, its a cursor based iterator just like in programming languages such as Python or Java or other databases like MongoDB or SQL databases. The `SCAN` command has several options and supporting commands which you can explore [here](http://redis.io/commands/scan).
 
 In most cases, you want to avoid querying for keys, you can use sets (which will be explained in the next module) to keep a unique list of keys.
 

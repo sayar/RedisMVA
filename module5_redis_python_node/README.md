@@ -2,7 +2,7 @@
 
 ## Objective
 
-By the end of this module you'll know how to:
+By the end of this module you will know how to:
 
 - Install the Redis Driver for Node.js
 - Install the Redis Driver for Python
@@ -12,23 +12,23 @@ By the end of this module you'll know how to:
 
 ## Introduction
 
-As we've learned in Module [2]() and [3]() Redis is a feature-packed cache with pub/sub capabilities along with advanced data structures that can keep application information.
+As we learned in Module [2](../module2_getting_started/README.md) and [3](../module3_getting_started/README.md), Redis is a feature-packed cache with pub/sub capabilities along with advanced data structures that can keep application information.
 
-In this module, we'll use Redis via Node.js and Python Drivers in a variety of examples which show off how we can use some Redis features.
+In this module, we will use Redis via the Node.js and the Python drivers in a variety of examples which show off Redis features.
 
 ## Getting Started
 
-Before you get started with this session, you'll need to install a few things:
+Before you get started with this session, you will need to install a few things:
 
 - [MongoDB](https://www.mongodb.org/downloads)
 - [Node.js](https://nodejs.org/download/)
 - [Python](https://www.python.org/downloads/) (Comes installed with Node.js)
 
-You can also install all of these things with either [Homebrew](http://brew.sh) for OSX or [Chocolatey](https://chocolatey.org) for Windows package managers which makes installation and updating very easy.
+You can also install all of these things with either [Homebrew](http://brew.sh) for OSX or [Chocolatey](https://chocolatey.org) for Windows. Package managers make installation and updating easy.
 
 ## Redis Commands with Python
 
-With Python we'll show you how to use the `redis-py` client to manipulate a few Redis data structures.
+With Python, we'll show you how to use the `redis-py` client to manipulate a few Redis data structures.
 
 #### Getting Started
 
@@ -41,18 +41,18 @@ sudo pip install redis
 pip install redis
 ```
 
-Create a new python file so we can get up an running with Redis called `datastructures.py` with the following import:
+Create a new Python file called `datastructures.py` with the following import:
 
 ```py
 import redis
 r = redis.StrictRedis(host="localhost", port=6379, db=0)
 ```
 
-Going forward the [Python Redis Client](https://redis-py.readthedocs.org/en/latest/index.html?highlight=mapping) implements nearly all the native redis commands.
+Going forward the [Python Redis Client](https://redis-py.readthedocs.org/en/latest/index.html?highlight=mapping) implements nearly all the native Redis commands.
 
 #### Hashes
 
-Continuing from the examples in Module [2](../module2_getting_started/README.md) and [3](../module3_getting_started/README.md) we can access redis' HSET command right from the redis client object:
+Continuing from the examples in Module [2](../module2_getting_started/README.md) and [3](../module3_getting_started/README.md), we can access Redis' HSET command right from the Redis client object:
 
 ```py
 import redis
@@ -65,7 +65,7 @@ r.hset("person:0", "last_name", "Edouard")
 print hgetall("person:0")
 ```
 
-The python script creates a new `person` hash with an `id` of 0 with both the `first_name` and `last_name` fields set.
+The Python script creates a new `person` hash with an `id` of 0 with both the `first_name` and `last_name` fields set.
 
 Just as on the command line, doing a GETALL will retrieve the entire hash set:
 
@@ -76,7 +76,7 @@ $ python datastructures.py
 
 #### Multiple HashSets
 
-Using the `client.hmset` function we can set a batch of key-value mappings for a hash set and send it all at once to redis, instead of sending one at a time. This really brings up the performance of you redis calls by reducing the overhead of an indivdual interaction with redis.
+Using the `client.hmset` function, we can set a batch of key-value mappings for a hash set and send it all at once to Redis, instead of sending one at a time. This improves the performance of your Redis calls by reducing the overhead of individual interactions.
 
 ```py
 print "Creating a batch mapping of keys first_name, last_name and location"
@@ -86,7 +86,7 @@ print r.hgetall("person:1")
 
 #### Sets
 
-Sets are just as easy to manipulate. Let's go off the [Sets example](https://github.com/sayar/RedisMVA/blob/master/module3_adv_datastructures/README.md#sets) from the previous section. If we wanted to create a set with the names of countries we can easily do that with the `setadd` function:
+Sets are just as easy to manipulate. Let's go off the [Sets example](https://github.com/sayar/RedisMVA/blob/master/module3_adv_datastructures/README.md#sets) from the previous section. If we wanted to create a set with the names of countries, we can do that with the `setadd` function:
 
 ```py
 print "Creating a set of countries in redis..."
@@ -97,7 +97,7 @@ print "Getting contry set from redis..."
 print r.smembers("countries")
 ```
 
-Here is the quick output that you'll get from running the above lines:
+This is the output that you'll get from running the above lines:
 
 ```
 Creating a set of countries in redis...
@@ -108,17 +108,17 @@ set(['Canada', 'USA', 'Mexico']
 
 ## Caching Queries (Node.js)
 
-One scenario why using Redis and any other cache is storing the results of common queries for a limited amount of time for fast recall.
+One scenario for using Redis or other caches is storing the results of common queries for a limited amount of time for fast recall.
 
-For example, a long running query that may be common to many users of your application can be cached so that the result is much quicker for most who ask for the query.
+For example, a long running query that may be common to many users of your application can be cached so that the result is quicker for most who ask for the query.
 
 ### The Crime Data Set
 
-We're going to build off of our previous [MongoDB MVA example dataset](https://github.com/sedouard/mongodb-mva/tree/master/module4_advanced_data_ops#the-example-data-set) and use it to run a long running query. You don't need to know much about MongoDB but in order to run example you'll have to [download and install MongoDB](https://www.mongodb.org/downloads). 
+We're going to build off of our previous [MongoDB MVA example dataset](https://github.com/sedouard/mongodb-mva/tree/master/module4_advanced_data_ops#the-example-data-set) and use it to run a long running query. You don't need to know much about MongoDB but in order to run the example you'll have to [download and install MongoDB](https://www.mongodb.org/downloads). 
 
 ### Loadup the Data
 
-Once you're running locally we'll go ahead and download [the dataset](https://mongdbmva.blob.core.windows.net/csv/crimedata.csv.zip) and quickly load up that .csv file with `mongoimport` which comes installed with MongoDB.
+Once you're running locally, we can download [the dataset](https://mongdbmva.blob.core.windows.net/csv/crimedata.csv.zip) and quickly load up that .csv file with `mongoimport`.
 
 ```bash
 mongoimport Crimes_-_2001_to_present.csv --type csv --headerline --collection crimes
@@ -134,7 +134,7 @@ A typical record in this database looks like:
 
 #### Querying the Database
 
-Now that we have the data up in Mongo let's make a quick app that will query this data. We'll call this `query.js`.
+Now that we have the data up in MongoDB, let's make an app that will query this data. We can call this `query.js`.
 
 ```js
 var MongoClient = require('mongodb').MongoClient
@@ -164,9 +164,9 @@ MongoClient.connect(url, function(err, db) {
 });
 ```
 
-We won't go into too much detail about how the MongoDB stuff works. If you want more detail there, just check out our [MongoDB language drivers walk-through](https://github.com/sedouard/mongodb-mva/tree/master/module3_language_drivers).
+We won't go into too much detail about how MongoDB works. If you want more detail there, just check out our [MongoDB language drivers walkthrough](https://github.com/sedouard/mongodb-mva/tree/master/module3_language_drivers).
 
-Because this query is querying on an un-indexed field - `Primary Type`, over 5 million records this can take a while. Run the following commands to run `query.js`:
+This query executes on an unindexed field - `Primary Type` - of over 5 million records, this can take a while. Run the following commands to run `query.js`:
 
 ```bash
 # install mongodb language driver
@@ -188,12 +188,11 @@ Total ROBBERY Crimes: 212034
 query_time: 2757ms
 ```
 
-
 #### Caching the Query Result
 
-Either way, 2.7 seconds for a query is quite long for a user to have to wait especially if this is a commonly accessed query. We can save the result of this query into Redis with a [TTL](http://en.wikipedia.org/wiki/Time_to_live) on the data so that the data is not only stored for fast access later, but also available for any other user who needs that same exact query.
+Eitherway, 2.7 seconds for a query is quite long for a user to have to wait especially if this is a commonly accessed query. We can save the result of this query into Redis with a [TTL](http://en.wikipedia.org/wiki/Time_to_live) on the data so that the data is not only stored for fast access later, but also available for any other user who needs that same exact query.
 
-First we'll add the redis Node.js language driver:
+First, we'll add the Redis Node.js language driver:
 
 ```bash
 npm install redis --save
@@ -201,14 +200,14 @@ npm install redis --save
 
 Now, create a new file called `cached_query.js` next to `query.js` and copy the contents of `query.js` into `cached_query.js` to get things started.
 
-Add the redis client by adding a `require` to the `redis` module and calling the `createClient` function on it:
+Add the Redis client by adding a `require` to the `redis` module and calling the `createClient` function on it:
 
 ```js
 var redis = require("redis");
 var client = redis.createClient();
 ```
 
-Now, we can use the `client.set` function to store something in the redis cache. We can use this to stash the result of the query count:
+Now, we can use the `client.set` function to store something in the Redis cache. We can use this to stash the result of the query count:
 
 ```js
 data.count(function(err, count){
@@ -234,11 +233,11 @@ data.count(function(err, count){
 });
 ```
 
-Now the result of the query has been stored into the key `longquery_result`. Reis stores all of its values as strings, so for exmaple if you wanted to store a javascript object you'd have to use `JSON.stringify` to properly store it into redis.
+Now the result of the query has been stored into the key `longquery_result`. Redis stores all of its values as strings, so for example if you wanted to store a JavaScript object you'd have to use `JSON.stringify` to properly store it into Redis.
 
-The `client.expire` function will attach a TTL of 20 seconds to the data which will cause redis to delete the stored value after an elapsed time of 20 seconds.
+The `client.expire` function will attach a TTL of 20 seconds to the data which will cause Redis to delete the stored value after an elapsed time of 20 seconds.
 
-Now, when we attempt to run the query, we need to first attempt to fetch the data out of redis before actually running the query on MongoDB. We'll add this right after we start the query timer:
+Now, when we attempt to run the query, we need to first attempt to fetch the data out of Redis before running the query on MongoDB. We'll add this right after we start the query timer:
 
 ```js
 client.get('longquery_result', function(err,count){
@@ -261,7 +260,7 @@ client.get('longquery_result', function(err,count){
 
 We can see that the `client.get` function callback takes the standard `err` as the first parameter and the value of the key as the second parameter, in our case we call this `count`.
 
-If the `count` variable is defined, we know we got the data and can quickly return it to the user. Otherwise we'll have to actually run the query on MongoDB.
+If the `count` variable is defined, we know we got the data and can quickly return it to the user. Otherwise, we'll have to run the query on MongoDB.
 
 Finally the entire `cached_query.js` looks like the following:
 
@@ -354,19 +353,19 @@ query_time: 2380ms
 sucessfully cached query
 ```
 
-So we can see that the first time our app does the query it takes a long time, in our case about 3.9 seconds. After caching into Redis it takes .01-.02 seconds a tremedous improvement because we don't actually have to run the query and redis holds the information in-memory for fast retrieval. Finally after the data expires, in our case a 20 second TTL the query s ran again and takes a long time.
+We can see that the first time our app executes the query it takes a long time, in our case about 3.9 seconds. After caching into Redis it takes .01-.02 seconds a tremedous improvement because we don't actually have to run the query and Redis holds the information in-memory for fast retrieval. Finally after the data expires, in our case a 20 second TTL, the queries run again and take a long time.
 
-The important thing to highlight is that these cached key-values can be shared amongst all your servers in your deployment and therefore these performance gains can be experienced by any of your users.
+The important thing to highlight is that these cached key-values can be shared among all your servers in your deployment and therefore these performance gains can be experienced by any of your users.
 
 ## Counting the Unique Number of IP Addresses that Connect to Our Site (Node.js)
 
-An interesting Feature of Redis is the algorithm [HyperLogLog](http://en.wikipedia.org/wiki/HyperLogLog) as a datastructure. It's an ingenious way to approximate count the number of unique items, without actually having to store what those items are. Traditionally this would require you to utilize an amount of space proportional to the number of unique items you need to calculate.
+An interesting feature of Redis is the algorithm [HyperLogLog](http://en.wikipedia.org/wiki/HyperLogLog) as a datastructure. It's an ingenious way to approximate count the number of unique items, without actually having to store what those items are. Traditionally this would require you to utilize an amount of space proportional to the number of unique items you need to calculate.
 
-Redis exposes HyperLogLog as a datastructure where you simply have to add a value to a key and redis will keep track of how many unique items you've added to that collection with a < 1% error.
+Redis exposes HyperLogLog as a data structure where you simply have to add a value to a key and redis will keep track of how many unique items you've added to that collection with a < 1% error.
 
 ### Creating a quick web server
 
-In order to do this we'll need to quickly create a web app. From the [node.js homepage](http://nodejs.org) we can copy the standard 'Hello World' server:
+In order to do this we'll need to quickly create a web app. From the [Node.js homepage](http://nodejs.org) we can copy the standard 'Hello World' server:
 
 ```js
 var http = require('http');
@@ -377,7 +376,8 @@ http.createServer(function (req, res) {
 console.log('Server running at http://127.0.0.1:1337/');
 ```
 ### Counting Unique Clients with Redis
-Now let's add our redis client as before
+
+Let's add our Redis client as before
 
 ```js
 var redis = require("redis");
@@ -390,7 +390,7 @@ http.createServer(function (req, res) {
 console.log('Server running at http://127.0.0.1:1337/');
 ```
 
-We can use the http `req.connection.remoteAddress` variable to get the client's IP address:
+We can use the HTTP `req.connection.remoteAddress` variable to get the client's IP address:
 
 ```js
 var redis = require("redis");
@@ -424,7 +424,7 @@ about 1 unique connections have visited this site!
 
 ### Deploying
 
-We absolutley need to have this deployed to a cloud service provider in order for the app to actually count the number of unique clients. Let's do this by quickly creating an azure site and deploying. First intiialize an azure website, setup source control deployment and copy your git url. You can use [this guide](http://azure.microsoft.com/en-us/documentation/videos/create-a-nodejs-site-deploy-from-github/) which walks you through the process.
+We need to have this deployed to a cloud service provider in order for the app to actually count the number of unique clients. Let's do this by quickly creating an Azure site and deploying. First, intiialize an Azure Website, setup source control deployment and copy your Git url. You can use [this guide](http://azure.microsoft.com/en-us/documentation/videos/create-a-nodejs-site-deploy-from-github/) which walks you through the process.
 
 Add to your `package.json` in the `scripts` object a `start` field:
 
@@ -435,16 +435,15 @@ Add to your `package.json` in the `scripts` object a `start` field:
   },
 ```
 
-This will tell websites to start the website using that command.
+This will tell Azure Websites to start the website using that command.
 
-We'll have to tell the driver that it needs to connect to an azure redis cache instead of hte local one. We can do this by adding the credentials to the redis client.
+We'll have to tell the driver that it needs to connect to an Azure Redis Cache instead of the local one. We can do this by adding the credentials to the Redis client.
 
 ```js
 var client = redis.createClient(6379, "<redis cache name>.redis.cache.windows.net", {auth_pass: '<password>', return_buffers: true});
 ```
 
-
-Initialize your git repository, add azure as a remote with the git publish link you got from azure websites:
+Initialize your Git repository, add Azure as a remote with the Git publish link you got from Azure Websites:
 
 ```bash
 # initialize git repo
@@ -461,15 +460,15 @@ git remote add azure <your azure git url>
 git push azure master
 ```
 
-You'll see the node pacakges get installed and you site deployed.
+You'll see the node packages get installed and your site deployed.
 
-Finally visit your website and have a friend visit it. You should see the following output on your browser:
+Finally, visit your website and have a friend visit it. You should see the following output on your browser:
 
 ```
 Hello 208.72.141.54:54160
  about 5 unique connections have visited this site!
 ```
 
-Because the app is deployed to a publicly accessible location you can now count the number of unique connections from clients anywhere on the web!
+Because the app is deployed to a publicly accessible location, you can now count the number of unique connections from clients anywhere on the web!
 
 

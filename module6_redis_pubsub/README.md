@@ -13,13 +13,13 @@ By the end of this module you will:
 
 Publish-subscribe or pub/sub for short is a messaging pattern where there are multiple publishers sending messages to multiple subscribers listening for messages on specific channels through server software. It is one of the most common message queue patterns. Many systems have been created for this purpose among them Redis, RabbitMQ, Azure MessageBus and more... 
 
-Redis, a high performance data structure store, has added support for pub/sub on top of its existing functionality. Redis pub/sub is built on three commands: `PUBLISH`, `SUBSCRIBE` and `UNSUBSCRIBE`. 
+Redis, a high-performance data structure store, has added support for pub/sub on top of its existing functionality. Redis pub/sub is built on three commands: `PUBLISH`, `SUBSCRIBE` and `UNSUBSCRIBE`. 
 
 The `SUBSCRIBE` command lets a client subscribe to the channels passed to the command start receiving messages e.g. `SUBSCRIBE analytics` will subscribe the client to the analytics channel. 
 
 The `UNSUBSCRIBE` command will unsubscribe the client from the specific channels.
 
-All messages received take the form of a three element array. The first element is the kind of message: "subscribe", "unsubscribe" and "message". The "subscribe" message indicates if the client was successful in subscribing with the "unsubscribe" message indicating the opposite. The "message" message contains the payload sent to the channel with the `PUBLISH` command. 
+All messages received take the form of a three-element array. The first element is the kind of message: "subscribe", "unsubscribe" and "message". The "subscribe" message indicates if the client was successful in subscribing with the "unsubscribe" message indicating the opposite. The "message" message contains the payload sent to the channel with the `PUBLISH` command. 
 
 Redis developers suggest for you to create separate clients for publishers and subscribers.
 
@@ -49,7 +49,7 @@ Redis pub/sub also has support for pattern matching when subscribing in clients.
 
 ## Using Redis Publish-Subscribe with Node.js
 
-To use the Redis pub/sub mechanism with node.js, the first thing you will want to do is select a native Redis client. The preferred node client is the [node_redis](https://github.com/mranney/node_redis) package.
+To use the Redis pub/sub mechanism with Node.js, the first thing you will want to do is select a native Redis client. The preferred Node client is the [node_redis](https://github.com/mranney/node_redis) package.
 
 The first thing you want to do is run `npm install redis` to install the node package into your project. 
 
@@ -86,11 +86,11 @@ pub.publish("analytics", "page_viewed");
 
 That's all you need to use Redis pub/sub!
 
-# Scaling a Realtime Messaging Application with Pub/Sub
+# Scaling a Real-time Messaging Application with Pub/Sub
 
-By itself it may be unclear why Redis' Pub/Sub feature is useful. However we can explain why this is so useful for scalabily with a simple chat application. We'll be using Socket.io and Node.js to do this applciation example but the architectual principal transcends languages.
+By itself it may be unclear why Redis' Pub/Sub feature is useful. However we can explain why this is so useful for scalability with a simple chat application. We'll be using Socket.IO and Node.js to do this application example but the architectural principal transcends languages.
 
-We won't be going into much of the application details but if you want to learn more about the inner workings of Socket.io and Node Express, check out one of our [previous MVAs](https://github.com/sayar/NodeMVA/tree/master/09_NodeChatroom).
+We won't be going into much of the application details but if you want to learn more about the inner workings of Socket.IO and Node Express, check out one of our [previous MVAs](https://github.com/sayar/NodeMVA/tree/master/09_NodeChatroom).
 
 ## Creating the Application
 
@@ -108,7 +108,7 @@ npm install
 npm install bower -g
 bower install
 ```
-Now run the applciation by executing:
+Now run the application by executing:
 
 ```bash
 # install grunt cli
@@ -141,13 +141,13 @@ debug - websocket writing 5:::{"name":"blast","args":[{"msg":"<span style=\"colo
 
 ### The Problem
 
-Notice that multiple clients can chat with each other when they connect to the same server. Currently here is a very high level look at the application messaging architecture:
+Notice that multiple clients can chat with each other when they connect to the same server. This is a high-level look at the application messaging architecture:
 
 ![](ss1.png)
 
 A client sends a message to everyone else connected to the server by dispatching a message to the server. Then the server broadcasts it to its connected clients.
 
-Right now running locally we have 1 server, however in the real world, when you roll out a service you generally have more than just 1 instance of the server running. Say we add another Socket.io server to scale the chat service:
+Running locally we have 1 server, however when you roll out a service, you want more than just 1 instance of the server running. Say we add another Socket.IO server to scale the chat service:
 
 ![](ss2.png)
 
@@ -159,7 +159,7 @@ or C.
 We can try this out for real by just copying the application we made to another directory:
 
 ```bash
-# copy the application directory to antoher
+# copy the application directory to another
 $ cp -R test-chat test-chat2
 ```
 
@@ -181,30 +181,29 @@ Next, in `public/js/app.js` modify this first line of code to tell the browser t
 var socket = io.connect('http://127.0.0.1:1338/');
 ```
 
-
 Notice, how we can't send a message from one window to the other:
 
 ![](ss5.png)
 
 #### Scaling With Redis
 
-A great way to solve this is by using Redis' pub/sub feature to facilitate messages between our socketio servers. With this here's how our architecture looks:
+A great way to solve this is by using Redis' pub/sub feature to facilitate messages between our Socket.IO servers. With this here's how our architecture looks:
 
 ![](ss3.png)
 
-In this scenario, client D can now recieve a message from client A because the backend servers are connected with Redis.
+In this scenario, client D can now receive a message from client A because the backend servers are connected with Redis.
 
-Let's actually implement this. Luckily the nice folks at socket.io has already created a [socket.io redis adapter](http://npmjs.com/package/socket.io-redis) just for this use.
+Let's actually implement this. Luckily the nice folks at Socket.IO has already created a [Socket.IO Redis adapter](http://npmjs.com/package/socket.io-redis) just for this use.
 
 In our case we need to make the following changes for **each** version of the application. In the real-world deployment we wouldn't have to do this because we would have a load balancer in place.
 
-First, we have to install the redis adapter and update the socket.io package. Execute this command to install the adapter:
+First, we have to install the Redis adapter and update the Socket.IO package. Execute this command to install the adapter:
 
 ```bash
 npm install socket.io-redis --save
 ```
 
-As of writing this the yeoman socketio generator uses an outdated version of the package. Change your `package.json` dependencies to look like this:
+As of writing this the Yeoman Socket.IO generator uses an outdated version of the package. Change your `package.json` dependencies to look like this:
 
 ```json
 "dependencies": {
@@ -216,7 +215,7 @@ As of writing this the yeoman socketio generator uses an outdated version of the
   }
 ```
 
-Now we need to tell the Node.js servers to use redis.  Change `server.js` first few `require` statements to use the redis adapter:
+Now we need to tell the Node.js servers to use Redis.  Change `server.js` first few `require` statements to use the Redis adapter:
 
 `server.js`
 
@@ -231,13 +230,13 @@ Remember all these changes need to be made to **both** versions of your app to m
 
 Now run both applications by using two terminal windows and executing `grunt`. Navigate one browser to `http://localhost:1338` and the other to `http://localhost:1337`.
 
-Notice now, we can actually send messages between the windows, even though they are both connected to two different socket.io servers:
+Notice now, we can send messages between the windows, even though they are both connected to two different Socket.IO servers:
 
 ![](ss6.png)
 
 Redis allows us to horizontally scale our service allowing multiple servers to publish and subscribe to messages so that users connected to different instances of the app can communicate.
 
-We won't actually do this in our walkthrough but when you deploy to [Azure](http://azure.com) or any other cloud service your final architecture would have a load balancer, which logically would look like a single server to your clients. Azure abstracts the load balancer from you and makes it really easy to setup load balancing without actually having to do any low level web server configuration.
+We won't actually do this in our walkthrough but when you deploy to [Azure](http://azure.com) or any other cloud service your final architecture would have a load balancer, which logically would look like a single server to your clients. Azure abstracts the load balancer from you and makes it easy to setup load balancing without having to do any low-level web server configuration.
 
 Here's what this architecture would look like in an actual cloud deployment:
 

@@ -13,9 +13,9 @@ By the end of this module you will:
 
 Redis is often called a data structure store because it builds on top of the concept of key-value pairs to provide more advanced data structures like lists, hashes, sets, etc. We saw in the previous [module](https://github.com/sayar/RedisMVA/blob/master/module2_getting_started/README.md) that Redis supports lists as a data type for value and includes several specialized commands for dealing with lists. 
 
-As we saw in the [first module](https://github.com/sayar/RedisMVA/blob/master/module1_intro_kv_dbs/README.md), we can decompose objects and complex data modules into a series of key-value pairs by using several indices in keys. Furthermore, you may have noticed that the tediousness of having to do execute multiple commands to make the jump. Luckily, Redis supports hashes which is the subject of this section.
+As we saw in the [first module](https://github.com/sayar/RedisMVA/blob/master/module1_intro_kv_dbs/README.md), we can decompose objects and complex data modules into a series of key-value pairs by using several indices in keys. Furthermore, you may have noticed that the tediousness of having to do execute multiple commands to make the jump. Luckily, Redis supports hashes which are the subject of this section.
 
-Hashes are collections of key-value pairs. A hash serves as a map between a series of string keys and their associated string values. Thus they are the perfect representation of objects in your key-value store. 
+Hashes are collections of key-value pairs. A hash serves as a map to a series of string keys and their associated string values. Thus, they are the perfect representation of objects in your key-value store. 
 
 The commands to get & set hashes follow a very similar pattern to what we have seen before. To create a hash, you can use the `HSET` command with a key for your hash and followed by a key-value pair (with `HSETNX` to set only if it doesn't already exist). To get a value in the hash, you can use the `HGET` command with the key for your hash and the key for the value. You can also GET & set multiple key-value pairs in your hash with the `HMGET` & `HMSET` command respectively. You can also use `HGETALL` to get all the key-value pairs in your hash.
 
