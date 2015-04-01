@@ -79,4 +79,4 @@ someredis.redis.cache.windows.net:6379> SET somekey 'some value'
 OK
 someredis.redis.cache.windows.net:6379> GET somekey
 "some value"
-```                                                             
+```
