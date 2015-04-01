@@ -64,7 +64,7 @@ To answer this question, it requires us to do a **join** which essentially is a 
 
 ### Key-value Structure
 
-In the key-value data structure, we want to reduce the Person table into a collection of keys and values that are identifiable by a Person ID. The key is an index in the key-value store, but we can add a second index embedded in the same key. For example, we want to take Person with ID=0 and store their first name, we can name our key: `0:first_name` or maybe `person:0:first_name` by using the ':' as an index separator in the key. If we follow this nomenclature of `table-name:key:property`, the above data can be flatted to the following key-value pairs. 
+In the key-value data structure, we want to reduce the Person table into a collection of keys and values that are identifiable by a Person ID. The key is an index in the key-value store, but we can add a second index embedded in the same key. For example, we want to take Person with ID=0 and store their first name, we can name our key: `0:first_name` or maybe `person:0:first_name` by using the ':' as an index separator in the key. If we follow this nomenclature of `table-name:key:property`, the above data can be flattened to the following key-value pairs. 
 
 ```
 "person:0:first_name" = "Steven"
