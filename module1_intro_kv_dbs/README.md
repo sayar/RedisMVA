@@ -1,4 +1,4 @@
-# Module 1: Introduction to Key-value Databases
+# Introduction to Key-value Databases
 
 --------
 ## Objectives
